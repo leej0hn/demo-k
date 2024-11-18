@@ -26,4 +26,14 @@ class TestController {
     fun select(): MutableList<Appliance>? {
         return applianceService?.list();
     }
+
+    @GetMapping("/test")
+    fun testV(): String {
+        Thread.sleep(400)
+        return """
+            {
+            "success":true
+            }
+        """.trimIndent();
+    }
 }
