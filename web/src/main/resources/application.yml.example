@@ -1,0 +1,18 @@
+logging:
+  file.path: /app/demo-k-web/log
+  level.org.example.demo: DEBUG
+
+#server:
+#  tomcat:
+#    threads:
+#      min-spare: 10  # 设置 Tomcat 线程池的最小线程数
+#      max: 200      # 设置 Tomcat 线程池的最大线程数
+
+spring:
+  application.name: demo-k-web
+  threads.virtual.enabled: true
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/smart?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    username: root
+    password: 123456
