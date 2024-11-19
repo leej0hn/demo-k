@@ -15,7 +15,7 @@
     <properties>
         <com-alibaba-cloud.version>2.2.1.RELEASE</com-alibaba-cloud.version>
         <jedis.version>5.0.0</jedis.version>
-        <druid.version>1.1.10</druid.version>
+        <druid.version>1.2.23</druid.version>
         <mysql.version>8.0.33</mysql.version>
         <mssql.version>4.0</mssql.version>
         <oracle.version>11.2.0.3</oracle.version>
@@ -76,7 +76,7 @@
             </dependency>
             <dependency>
                 <groupId>com.alibaba</groupId>
-                <artifactId>druid-spring-boot-starter</artifactId>
+                <artifactId>druid-spring-boot-3-starter</artifactId>
                 <version>${druid.version}</version>
             </dependency>
 
