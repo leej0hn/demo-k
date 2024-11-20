@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executors
+import java.util.concurrent.TimeUnit
 
 
 @RestController
@@ -29,9 +31,9 @@ class TestController {
         return applianceService?.list();
     }
 
-    @GetMapping("/test")
-    fun test(): String {
-        logger.info("test---start..")
+    @GetMapping("/test/join")
+    fun testJoin(): String {
+        logger.info("test---start..${Thread.currentThread()}")
         val sleep1 = sleep1()
         val sleep2 = sleep2()
         val sleep3 = sleep3()
@@ -50,10 +52,48 @@ class TestController {
         """.trimIndent();
     }
 
-    fun sleep1(): Thread {
-        Executors.newVirtualThreadPerTaskExecutor().submit{
+    @GetMapping("/test/feature")
+    fun testFeature(): String {
+        logger.info("test---start..${Thread.currentThread()}")
+        val f1 = sleepFeature1()
+        val f2 = sleepFeature2()
+        val f3 = sleepFeature3()
+        val allOf = CompletableFuture.anyOf(f1, f2, f3)
+        allOf.get(1, TimeUnit.SECONDS) // 等待所有任务完成
+        logger.info("test---end..")
+        return """
+            {
+            "success":true
+            }
+        """.trimIndent();
+    }
 
-        }
+    fun sleepFeature1(): CompletableFuture<Void> {
+        return CompletableFuture.runAsync({
+            logger.info("sleepFeature1---start..${Thread.currentThread()}")
+            Thread.sleep(400)
+            logger.info("sleepFeature1---end..")
+            logger.info("${Thread.currentThread()}---end..")
+        }, Executors.newVirtualThreadPerTaskExecutor())
+    }
+
+    fun sleepFeature2(): CompletableFuture<Void> {
+        return CompletableFuture.runAsync({
+            logger.info("sleepFeature2---start..${Thread.currentThread()}")
+            Thread.sleep(400)
+            logger.info("sleepFeature2---end..")
+        }, Executors.newVirtualThreadPerTaskExecutor())
+    }
+
+    fun sleepFeature3(): CompletableFuture<Void> {
+        return CompletableFuture.runAsync({
+            logger.info("sleepFeature3---start..${Thread.currentThread()}")
+            Thread.sleep(2000)
+            logger.info("sleepFeature3---end..")
+        }, Executors.newVirtualThreadPerTaskExecutor())
+    }
+
+    fun sleep1(): Thread {
         return Thread.startVirtualThread {
             logger.info("sleep1---start..")
             Thread.sleep(400)
