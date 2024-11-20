@@ -20,11 +20,12 @@
     </modules>
 
     <properties>
+        <java.version>21</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
-        <kotlin.code.style>official</kotlin.code.style>
         <kotlin.compiler.jvmTarget>21</kotlin.compiler.jvmTarget>
+        <kotlin.code.style>official</kotlin.code.style>
         <spring-boot.version>3.3.4</spring-boot.version>
         <maven-plugin.version>3.4.0</maven-plugin.version>
         <mybatis-plus.version>3.5.8</mybatis-plus.version>
