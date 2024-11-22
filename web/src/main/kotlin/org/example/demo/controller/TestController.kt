@@ -58,8 +58,9 @@ class TestController {
         val f1 = sleepFeature1()
         val f2 = sleepFeature2()
         val f3 = sleepFeature3()
-        val allOf = CompletableFuture.anyOf(f1, f2, f3)
-        allOf.get(1, TimeUnit.SECONDS) // 等待所有任务完成
+        val allOf = CompletableFuture.allOf(f1, f2, f3)
+        // 等待所有任务完成
+        allOf[4, TimeUnit.SECONDS]
         logger.info("test---end..")
         return """
             {
